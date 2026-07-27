@@ -205,7 +205,7 @@ export function UploadFlow() {
         <div className="space-y-3">
           <div className="flex items-center justify-between text-sm text-stone">
             <span>
-              {items.length} {items.length === 1 ? "lêer" : "lêers"} gekies
+              {items.length} {items.length === 1 ? "file" : "files"} selected
             </span>
             {busy && (
               <span className="inline-flex items-center gap-1.5 text-sage-deep">
