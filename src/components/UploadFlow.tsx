@@ -29,10 +29,10 @@ type Item = {
 const NAME_KEY = "bb-guest-name";
 
 const STATUS_LABEL: Record<Status, string> = {
-  wag: "In tou",
-  verklein: "Verklein…",
-  oplaai: "Laai op…",
-  klaar: "Gelaai",
+  wag: "Queued",
+  verklein: "Optimizing…",
+  oplaai: "Uploading…",
+  klaar: "Done",
   fout: "Error",
 };
 

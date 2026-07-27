@@ -34,7 +34,7 @@ export default async function GalleryPage() {
 
         {error && (
           <div className="card p-8 text-center text-stone">
-            Ons kon nie die albums laai nie. Probeer asseblief later weer.
+            We couldn&apos;t load the albums. Please try again later.
           </div>
         )}
 
