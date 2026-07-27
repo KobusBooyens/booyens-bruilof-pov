@@ -149,7 +149,7 @@ export function UploadFlow() {
       {/* Name */}
       <div>
         <label htmlFor="guest" className="eyebrow mb-2 block">
-          Skep 'n album
+          Create an album
         </label>
         <input
           id="guest"
@@ -161,7 +161,8 @@ export function UploadFlow() {
                      outline-none transition focus:border-sage focus:ring-2 focus:ring-sage/30"
         />
         <p className="mt-2 text-sm text-stone">
-          Skep 'n album waar jy jou en jou gesin, en vriende se foto's en video's kan oplaai en met almal kan deel.
+          Create an album where you, your family, and friends can upload photos
+          and videos and share them with everyone.
         </p>
       </div>
 
@@ -183,8 +184,8 @@ export function UploadFlow() {
                        text-center transition hover:border-sage hover:bg-parchment"
           >
             <ImagePlus className="text-sage-deep" size={26} />
-            <span className="font-display text-lg text-ink">Kies foto's &amp; video's</span>
-            <span className="text-sm text-stone">Kies uit jou albums</span>
+            <span className="font-display text-lg text-ink">Choose photos &amp; videos</span>
+            <span className="text-sm text-stone">Pick from your gallery</span>
           </label>
 
           <label
@@ -194,8 +195,8 @@ export function UploadFlow() {
                        text-center transition hover:border-clay hover:bg-parchment sm:hidden"
           >
             <Camera className="text-clay" size={26} />
-            <span className="font-display text-lg text-ink">Neem 'n foto of video</span>
-            <span className="text-sm text-stone">Gebruik jou kamera</span>
+            <span className="font-display text-lg text-ink">Take a photo or video</span>
+            <span className="text-sm text-stone">Use your camera</span>
           </label>
         </div>
       </div>
@@ -282,14 +283,14 @@ export function UploadFlow() {
         <button onClick={startUpload} disabled={busy} className="btn-primary w-full">
           {busy ? (
             <>
-              <Loader2 className="animate-spin" size={18} /> Besig om op te laai…
+              <Loader2 className="animate-spin" size={18} /> Uploading…
             </>
           ) : failedCount > 0 ? (
             <>
-              <RotateCcw size={18} /> Probeer weer
+              <RotateCcw size={18} /> Try again
             </>
           ) : (
-            <>Deel foto's</>
+            <>Share photos</>
           )}
         </button>
       )}
@@ -301,26 +302,26 @@ export function UploadFlow() {
             <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-sage-deep text-linen">
               <Check size={22} />
             </div>
-            <h3 className="font-display text-2xl text-ink">Dankie, {cleanName(name)}!</h3>
+            <h3 className="font-display text-2xl text-ink">Thank you, {cleanName(name)}!</h3>
             <p className="mx-auto mt-1 max-w-md text-stone">
-              Jou foto's is deel van ons dag. Hier is jou persoonlike QR-kode —
-              stoor of deel dit om jou album enige tyd oop te maak.
+              Your photos and videos are part of our day. Here&apos;s your
+              personal QR code — save or share it to reopen your album any time.
             </p>
           </div>
 
           <QRCard
             url={albumUrl}
             label="My album"
-            caption="Skandeer om jou eie foto's te sien of nog by te voeg."
+            caption="Scan to view your photos or add more."
             filename={`album-${cleanName(name).replace(/\s+/g, "-").toLowerCase()}`}
           />
 
           <div className="flex flex-col gap-3 sm:flex-row">
             <Link href={`/album/${folderId}`} className="btn-clay flex-1">
-              Bekyk my album
+              View my album
             </Link>
             <Link href="/gallery" className="btn-ghost flex-1">
-              Sien almal se foto's
+              See everyone&apos;s photos
             </Link>
           </div>
         </div>
