@@ -20,36 +20,24 @@ export default async function AlbumPage({
   return (
     <>
       <SiteHeader />
-      <main className="mx-auto max-w-5xl px-5 pt-10 pb-[calc(2.5rem+env(safe-area-inset-bottom))]">
+      <main className="mx-auto max-w-5xl px-5 py-10">
         <Link
           href="/gallery"
-          className="animate-rise inline-flex items-center gap-1.5 text-sm text-stone transition hover:text-ink"
-          style={{ animationDelay: "0.05s" }}
+          className="inline-flex items-center gap-1.5 text-sm text-stone transition hover:text-ink"
         >
-          <ArrowLeft size={16} /> Terug na galery
+          <ArrowLeft size={16} /> Terug na albums
         </Link>
 
         <header className="mb-8 mt-4 flex flex-wrap items-end justify-between gap-4">
           <div>
-            <p className="eyebrow animate-rise" style={{ animationDelay: "0.12s" }}>
-              Album
-            </p>
-            <h1
-              className="animate-rise mt-2 font-display text-4xl text-ink"
-              style={{ animationDelay: "0.2s" }}
-            >
-              {album.name}
-            </h1>
-            <p className="animate-rise mt-1 text-stone" style={{ animationDelay: "0.3s" }}>
+            <p className="eyebrow">Album</p>
+            <h1 className="mt-2 font-display text-4xl text-ink">{album.name}</h1>
+            <p className="mt-1 text-stone">
               {album.photos.length}{" "}
               {album.photos.length === 1 ? "foto" : "foto's"}
             </p>
           </div>
-          <Link
-            href="/upload"
-            className="btn-clay animate-rise text-sm"
-            style={{ animationDelay: "0.38s" }}
-          >
+          <Link href="/upload" className="btn-clay text-sm">
             <Plus size={16} /> Voeg foto's by
           </Link>
         </header>

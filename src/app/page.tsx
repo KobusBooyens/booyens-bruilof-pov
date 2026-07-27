@@ -32,6 +32,20 @@ export default async function HomePage() {
         {/* Hero — grows to fill the viewport so the footer sits at the bottom
             without scrolling on desktop. */}
         <section className="relative flex flex-1 flex-col overflow-hidden">
+          {/* Background photo with a slow Ken Burns drift + a cream scrim so the
+              earthy text stays readable. Tune the scrim (bg-linen/…) to make the
+              photo more or less prominent. */}
+          <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/hero-section.jpg"
+              alt=""
+              className="animate-kenburns h-full w-full object-cover"
+            />
+            <div className="absolute inset-0 bg-linen/55" />
+            <div className="absolute inset-0 bg-gradient-to-b from-linen/70 via-transparent to-linen/85" />
+          </div>
+
           <div className="grain absolute inset-0 opacity-70" aria-hidden />
           <Contours className="pointer-events-none absolute inset-x-0 bottom-0 h-52 w-full text-sage/35" />
 

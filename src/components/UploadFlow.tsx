@@ -161,7 +161,7 @@ export function UploadFlow() {
                      outline-none transition focus:border-sage focus:ring-2 focus:ring-sage/30"
         />
         <p className="mt-2 text-sm text-stone">
-          Skep 'n album waar jy jou en jou gesin en vriende se foto's en video's kan oplaai en met almal kan deel.
+          Skep 'n album waar jy jou en jou gesin, en vriende se foto's en video's kan oplaai en met almal kan deel.
         </p>
       </div>
 

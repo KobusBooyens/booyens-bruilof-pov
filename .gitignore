@@ -5,6 +5,7 @@
 .env*.local
 .DS_Store
 *.pem
+*.tsbuildinfo
 npm-debug.log*
 
 # Local tooling artifacts

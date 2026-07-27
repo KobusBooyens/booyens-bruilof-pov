@@ -3,7 +3,7 @@ import { Images, ArrowRight } from "lucide-react";
 import { SiteHeader } from "@/components/SiteHeader";
 import { listAlbums } from "@/lib/drive";
 
-export const metadata = { title: "Galery · Kobus & Simoné" };
+export const metadata = { title: "Albums · Kobus & Simoné" };
 // Always reflect the latest albums so a guest's fresh upload shows up straight away.
 export const dynamic = "force-dynamic";
 
@@ -21,31 +21,20 @@ export default async function GalleryPage() {
   return (
     <>
       <SiteHeader />
-      <main className="mx-auto max-w-5xl px-5 pt-12 pb-[calc(3rem+env(safe-area-inset-bottom))]">
+      <main className="mx-auto max-w-5xl px-5 py-12">
         <header className="mb-8 flex flex-wrap items-end justify-between gap-4">
           <div>
-            <p className="eyebrow animate-rise" style={{ animationDelay: "0.05s" }}>
-              Almal se foto's
-            </p>
-            <h1
-              className="animate-rise mt-2 font-display text-4xl text-ink"
-              style={{ animationDelay: "0.15s" }}
-            >
-              Die galery
-            </h1>
+            <p className="eyebrow">Sien hoe ander die dag ervaar</p>
+            <h1 className="mt-2 font-display text-4xl text-ink">Albums</h1>
           </div>
-          <Link
-            href="/upload"
-            className="btn-clay animate-rise text-sm"
-            style={{ animationDelay: "0.28s" }}
-          >
+          <Link href="/upload" className="btn-clay text-sm">
             Laai jou eie op
           </Link>
         </header>
 
         {error && (
           <div className="card p-8 text-center text-stone">
-            We couldn&apos;t load the albums. Please try again later.
+            Ons kon nie die albums laai nie. Probeer asseblief later weer.
           </div>
         )}
 
@@ -65,12 +54,11 @@ export default async function GalleryPage() {
 
         {!error && withPhotos.length > 0 && (
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-            {withPhotos.map((album, i) => (
+            {withPhotos.map((album) => (
               <Link
                 key={album.id}
                 href={`/album/${album.id}`}
-                style={{ animationDelay: `${0.2 + Math.min(i, 12) * 0.06}s` }}
-                className="group card animate-rise overflow-hidden transition hover:-translate-y-0.5 hover:shadow-photo"
+                className="group card overflow-hidden transition hover:-translate-y-0.5 hover:shadow-photo"
               >
                 <div className="aspect-square overflow-hidden bg-sand">
                   {album.cover ? (
@@ -79,7 +67,6 @@ export default async function GalleryPage() {
                       src={album.cover}
                       alt={album.name}
                       loading="lazy"
-                      referrerPolicy="no-referrer"
                       className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
                     />
                   ) : (
