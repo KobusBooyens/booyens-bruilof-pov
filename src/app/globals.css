@@ -1,0 +1,88 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-linen text-ink font-body antialiased;
+    /* Native-feeling: no accidental sideways scroll, no blue tap flash, and
+       keep content clear of rounded screen corners in landscape. */
+    overflow-x: hidden;
+    -webkit-tap-highlight-color: transparent;
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+  ::selection {
+    background: #7e8b6a;
+    color: #fbf7ef;
+  }
+  h1, h2, h3 {
+    @apply font-display;
+  }
+}
+
+@layer components {
+  /* Eyebrow label above headings */
+  .eyebrow {
+    @apply inline-flex items-center gap-2 text-[0.72rem] uppercase tracking-[0.28em] text-sage-deep/80 font-body;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-[0.95rem] font-medium
+           transition-all duration-200 focus-visible:outline-none focus-visible:ring-2
+           focus-visible:ring-sage focus-visible:ring-offset-2 focus-visible:ring-offset-linen
+           disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  .btn-primary {
+    @apply btn bg-sage-deep text-linen hover:bg-ink shadow-soft;
+  }
+  .btn-clay {
+    @apply btn bg-clay text-linen hover:bg-clay-deep shadow-soft;
+  }
+  .btn-ghost {
+    @apply btn border border-line bg-parchment/70 text-ink hover:border-sage hover:bg-parchment;
+  }
+
+  .card {
+    @apply rounded-card border border-line bg-parchment shadow-soft;
+  }
+}
+
+/* Faint film-grain texture used behind the hero — cheap, subject-appropriate. */
+.grain {
+  background-image: radial-gradient(rgba(55, 46, 38, 0.05) 1px, transparent 1px);
+  background-size: 4px 4px;
+}
+
+/* Classy entrance: gentle rise with a soft de-blur as the text settles.
+   Pair with an inline `animation-delay` to stagger elements. */
+@keyframes rise-in {
+  0% {
+    opacity: 0;
+    transform: translateY(16px);
+    filter: blur(10px);
+  }
+  60% {
+    filter: blur(0);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+.animate-rise {
+  opacity: 0;
+  animation: rise-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
