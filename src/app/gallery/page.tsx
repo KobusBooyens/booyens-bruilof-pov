@@ -67,6 +67,7 @@ export default async function GalleryPage() {
                       src={album.cover}
                       alt={album.name}
                       loading="lazy"
+                      referrerPolicy="no-referrer"
                       className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
                     />
                   ) : (
