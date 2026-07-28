@@ -26,8 +26,6 @@ type Item = {
   error?: string;
 };
 
-const NAME_KEY = "bb-guest-name";
-
 const STATUS_LABEL: Record<Status, string> = {
   wag: "Queued",
   verklein: "Optimizing…",
@@ -56,11 +54,10 @@ export function UploadFlow({
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    // In album mode the name is fixed to the album; don't overwrite it with the
-    // guest's own remembered name.
-    if (!albumMode) setName(localStorage.getItem(NAME_KEY) ?? "");
+    // Intentionally do NOT restore the album name from a previous visit — each
+    // visit to /upload should start with an empty "Create an album" field.
     setOrigin(window.location.origin);
-  }, [albumMode]);
+  }, []);
 
   const doneCount = items.filter((i) => i.status === "klaar").length;
   const allDone = items.length > 0 && doneCount === items.length && !busy;
@@ -92,7 +89,6 @@ export function UploadFlow({
       inputRef.current?.focus();
       return;
     }
-    if (!albumMode) localStorage.setItem(NAME_KEY, guest);
     setBusy(true);
 
     const pending = items.filter((i) => i.status !== "klaar");
