@@ -41,15 +41,19 @@ export default async function HomePage() {
               src="/hero-section.jpg"
               alt=""
               className="animate-kenburns h-full w-full object-cover"
+              style={{ objectPosition: "center 72%" }}
             />
-            <div className="absolute inset-0 bg-linen/55" />
-            <div className="absolute inset-0 bg-gradient-to-b from-linen/70 via-transparent to-linen/85" />
+            <div className="absolute inset-0 bg-linen/60" />
+            <div className="absolute inset-0 bg-gradient-to-b from-linen/75 via-linen/50 to-linen/90" />
           </div>
 
           <div className="grain absolute inset-0 opacity-70" aria-hidden />
           <Contours className="pointer-events-none absolute inset-x-0 bottom-0 h-52 w-full text-sage/35" />
 
-          <div className="relative mx-auto flex w-full max-w-3xl flex-1 flex-col justify-center px-5 py-12 text-center">
+          <div
+            className="relative mx-auto flex w-full max-w-3xl flex-1 flex-col justify-center px-5 py-12 text-center"
+            style={{ textShadow: "0 1px 14px rgba(244, 238, 226, 0.65)" }}
+          >
             <p
               className="eyebrow animate-rise justify-center"
               style={{ animationDelay: "0.05s" }}
@@ -64,7 +68,7 @@ export default async function HomePage() {
               <span className="mt-1 block italic text-sage-deep">ons groot dag</span>
             </h1>
             <p
-              className="animate-rise mx-auto mt-5 max-w-xl text-lg text-stone"
+              className="animate-rise mx-auto mt-5 max-w-xl text-lg text-ink/90"
               style={{ animationDelay: "0.28s" }}
             >
               Elke gas sien iets anders. Laai jou foto's en video's op, dan bou
