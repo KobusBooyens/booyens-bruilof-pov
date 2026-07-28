@@ -12,13 +12,13 @@ export function SiteHeader() {
             href="/upload"
             className="rounded-full px-3 py-1.5 text-stone transition hover:bg-parchment hover:text-ink"
           >
-            Deel foto's
+            Upload
           </Link>
           <Link
             href="/gallery"
             className="rounded-full px-3 py-1.5 text-stone transition hover:bg-parchment hover:text-ink"
           >
-            Album
+            Gallery
           </Link>
         </nav>
       </div>

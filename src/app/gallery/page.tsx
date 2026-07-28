@@ -3,7 +3,7 @@ import { Images, ArrowRight } from "lucide-react";
 import { SiteHeader } from "@/components/SiteHeader";
 import { listAlbums } from "@/lib/drive";
 
-export const metadata = { title: "Albums · Kobus & Simoné" };
+export const metadata = { title: "Gallery · Kobus & Simoné" };
 // Always reflect the latest albums so a guest's fresh upload shows up straight away.
 export const dynamic = "force-dynamic";
 
@@ -24,11 +24,11 @@ export default async function GalleryPage() {
       <main className="mx-auto max-w-5xl px-5 py-12">
         <header className="mb-8 flex flex-wrap items-end justify-between gap-4">
           <div>
-            <p className="eyebrow">Sien hoe ander die dag ervaar</p>
-            <h1 className="mt-2 font-display text-4xl text-ink">Albums</h1>
+            <p className="eyebrow">See how others experienced the day</p>
+            <h1 className="mt-2 font-display text-4xl text-ink">Gallery</h1>
           </div>
           <Link href="/upload" className="btn-clay text-sm">
-            Laai jou eie op
+            Upload your own
           </Link>
         </header>
 
@@ -41,13 +41,13 @@ export default async function GalleryPage() {
         {!error && withPhotos.length === 0 && (
           <div className="card flex flex-col items-center p-12 text-center">
             <Images className="text-sage" size={30} />
-            <h2 className="mt-4 font-display text-2xl text-ink">Nog geen foto's nie</h2>
+            <h2 className="mt-4 font-display text-2xl text-ink">No photos yet</h2>
             <p className="mt-2 max-w-sm text-stone">
-              Wees die eerste om 'n oomblik te deel — jou album verskyn sodra jy
-              oplaai.
+              Be the first to share a moment — your album appears as soon as you
+              upload.
             </p>
             <Link href="/upload" className="btn-primary mt-6">
-              Laai die eerste foto's op
+              Upload the first photos
             </Link>
           </div>
         )}
@@ -80,7 +80,7 @@ export default async function GalleryPage() {
                   <div className="min-w-0">
                     <p className="truncate font-display text-lg text-ink">{album.name}</p>
                     <p className="text-xs text-stone">
-                      {album.count} {album.count === 1 ? "foto" : "foto's"}
+                      {album.count} {album.count === 1 ? "photo" : "photos"}
                     </p>
                   </div>
                   <ArrowRight

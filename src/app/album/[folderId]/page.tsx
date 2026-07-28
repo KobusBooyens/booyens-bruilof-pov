@@ -25,7 +25,7 @@ export default async function AlbumPage({
           href="/gallery"
           className="inline-flex items-center gap-1.5 text-sm text-stone transition hover:text-ink"
         >
-          <ArrowLeft size={16} /> Terug na albums
+          <ArrowLeft size={16} /> Back to gallery
         </Link>
 
         <header className="mb-8 mt-4 flex flex-wrap items-end justify-between gap-4">
@@ -34,20 +34,20 @@ export default async function AlbumPage({
             <h1 className="mt-2 font-display text-4xl text-ink">{album.name}</h1>
             <p className="mt-1 text-stone">
               {album.photos.length}{" "}
-              {album.photos.length === 1 ? "foto" : "foto's"}
+              {album.photos.length === 1 ? "photo" : "photos"}
             </p>
           </div>
           <Link
             href={`/upload?album=${params.folderId}&name=${encodeURIComponent(album.name)}`}
             className="btn-clay text-sm"
           >
-            <Plus size={16} /> Voeg foto's by
+            <Plus size={16} /> Add photos
           </Link>
         </header>
 
         {album.photos.length === 0 ? (
           <div className="card p-12 text-center text-stone">
-            Hierdie album is nog leeg.
+            This album is empty.
           </div>
         ) : (
           <PhotoGrid photos={album.photos} />
