@@ -24,6 +24,12 @@ export const metadata: Metadata = {
     description: "Deel jou oomblikke van ons groot dag — 16 Oktober 2026.",
     type: "website",
   },
+  // iOS "Add to Home Screen": launch standalone with this name under the icon.
+  appleWebApp: {
+    capable: true,
+    title: "K & S Foto's",
+    statusBarStyle: "default",
+  },
 };
 
 // Mobile-native: fill the true viewport, draw under notches/rounded corners,
