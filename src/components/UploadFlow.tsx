@@ -36,18 +36,31 @@ const STATUS_LABEL: Record<Status, string> = {
   fout: "Error",
 };
 
-export function UploadFlow() {
-  const [name, setName] = useState("");
+export function UploadFlow({
+  targetAlbumId,
+  targetAlbumName,
+}: {
+  targetAlbumId?: string;
+  targetAlbumName?: string;
+} = {}) {
+  // "Album mode": a guest opened this from an existing album and is adding to
+  // it, rather than creating their own. We already know the target folder, so
+  // uploads go straight there instead of finding/creating a folder by name.
+  const albumMode = Boolean(targetAlbumId);
+
+  const [name, setName] = useState(targetAlbumName ?? "");
   const [items, setItems] = useState<Item[]>([]);
   const [busy, setBusy] = useState(false);
-  const [folderId, setFolderId] = useState<string | null>(null);
+  const [folderId, setFolderId] = useState<string | null>(targetAlbumId ?? null);
   const [origin, setOrigin] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    setName(localStorage.getItem(NAME_KEY) ?? "");
+    // In album mode the name is fixed to the album; don't overwrite it with the
+    // guest's own remembered name.
+    if (!albumMode) setName(localStorage.getItem(NAME_KEY) ?? "");
     setOrigin(window.location.origin);
-  }, []);
+  }, [albumMode]);
 
   const doneCount = items.filter((i) => i.status === "klaar").length;
   const allDone = items.length > 0 && doneCount === items.length && !busy;
@@ -72,12 +85,14 @@ export function UploadFlow() {
   }
 
   async function startUpload() {
-    const guest = cleanName(name);
+    // In album mode the folder id is what matters; the name is only sent to
+    // satisfy the API, so fall back to a generic label if it's somehow blank.
+    const guest = cleanName(name) || (albumMode ? "Gas" : "");
     if (!guest) {
       inputRef.current?.focus();
       return;
     }
-    localStorage.setItem(NAME_KEY, guest);
+    if (!albumMode) localStorage.setItem(NAME_KEY, guest);
     setBusy(true);
 
     const pending = items.filter((i) => i.status !== "klaar");
@@ -146,25 +161,34 @@ export function UploadFlow() {
 
   return (
     <div className="space-y-8">
-      {/* Name */}
-      <div>
-        <label htmlFor="guest" className="eyebrow mb-2 block">
-          Create an album
-        </label>
-        <input
-          id="guest"
-          ref={inputRef}
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          placeholder="Lawn Games!"
-          className="w-full rounded-xl border border-line bg-parchment px-4 py-3 text-ink
-                     outline-none transition focus:border-sage focus:ring-2 focus:ring-sage/30"
-        />
-        <p className="mt-2 text-sm text-stone">
-          Create an album where you, your family, and friends can upload photos
-          and videos and share them with everyone.
-        </p>
-      </div>
+      {/* Name (create mode) / target album banner (album mode) */}
+      {albumMode ? (
+        <div className="rounded-card border border-sage/30 bg-sage/5 px-4 py-3">
+          <p className="eyebrow mb-1">Adding to album</p>
+          <p className="font-display text-lg text-ink">
+            {targetAlbumName ?? "This album"}
+          </p>
+        </div>
+      ) : (
+        <div>
+          <label htmlFor="guest" className="eyebrow mb-2 block">
+            Create an album
+          </label>
+          <input
+            id="guest"
+            ref={inputRef}
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Lawn Games!"
+            className="w-full rounded-xl border border-line bg-parchment px-4 py-3 text-ink
+                       outline-none transition focus:border-sage focus:ring-2 focus:ring-sage/30"
+          />
+          <p className="mt-2 text-sm text-stone">
+            Create an album where you, your family, and friends can upload photos
+            and videos and share them with everyone.
+          </p>
+        </div>
+      )}
 
       {/* Picker */}
       <div>
@@ -302,23 +326,40 @@ export function UploadFlow() {
             <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-sage-deep text-linen">
               <Check size={22} />
             </div>
-            <h3 className="font-display text-2xl text-ink">Thank you, {cleanName(name)}!</h3>
+            <h3 className="font-display text-2xl text-ink">
+              {albumMode ? "Thank you!" : `Thank you, ${cleanName(name)}!`}
+            </h3>
             <p className="mx-auto mt-1 max-w-md text-stone">
-              Your photos and videos are part of our day. Here&apos;s your
-              personal QR code — save or share it to reopen your album any time.
+              {albumMode ? (
+                <>
+                  Your photos and videos have been added to{" "}
+                  {targetAlbumName ?? "the album"}. Here&apos;s the QR code —
+                  save or share it to reopen this album any time.
+                </>
+              ) : (
+                <>
+                  Your photos and videos are part of our day. Here&apos;s your
+                  personal QR code — save or share it to reopen your album any
+                  time.
+                </>
+              )}
             </p>
           </div>
 
           <QRCard
             url={albumUrl}
-            label="My album"
-            caption="Scan to view your photos or add more."
+            label={albumMode ? targetAlbumName ?? "Album" : "My album"}
+            caption={
+              albumMode
+                ? "Scan to view this album or add more."
+                : "Scan to view your photos or add more."
+            }
             filename={`album-${cleanName(name).replace(/\s+/g, "-").toLowerCase()}`}
           />
 
           <div className="flex flex-col gap-3 sm:flex-row">
             <Link href={`/album/${folderId}`} className="btn-clay flex-1">
-              View my album
+              {albumMode ? "View album" : "View my album"}
             </Link>
             <Link href="/gallery" className="btn-ghost flex-1">
               See everyone&apos;s photos

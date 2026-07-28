@@ -37,7 +37,10 @@ export default async function AlbumPage({
               {album.photos.length === 1 ? "foto" : "foto's"}
             </p>
           </div>
-          <Link href="/upload" className="btn-clay text-sm">
+          <Link
+            href={`/upload?album=${params.folderId}&name=${encodeURIComponent(album.name)}`}
+            className="btn-clay text-sm"
+          >
             <Plus size={16} /> Voeg foto's by
           </Link>
         </header>
